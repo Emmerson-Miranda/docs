@@ -1,4 +1,4 @@
-#Cheatsheet - vi
+Cheatsheet - vi
 ===
 
 Configure vi to work nicely with yaml files
