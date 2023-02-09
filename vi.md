@@ -34,4 +34,5 @@ Editor commands
 | D   | delete from the current position                       |
 | x   | delete the current character                           |
 | i   | Insert mode (allow write text)                         |
+| :s  | Replace text :s/oldvalue/newvalue/g                    |
 
