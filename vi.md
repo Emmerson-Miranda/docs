@@ -16,7 +16,7 @@ EOF
 
 Editor commands
 
-| Char| Description                                            |
+| CMD | Description                                            |
 |-----|--------------------------------------------------------|
 | H   | Move the cursor to the top of the screen               |
 | M   | Move the cursor to the middle of the screen            |
@@ -26,13 +26,13 @@ Editor commands
 | $   | Move cursor to the end of the line                     |
 | ^   | Move cursor to the start of the line                   |
 | :nn | Move the cursor to line number (nn should be a number) |
-| u   | undo                                                   |
-| yy  | copy                                                   |
-| p   | paste below the current position                       |
-| P   | paste above the current position                       |
-| dd  | delete the current line                                |
-| D   | delete from the current position                       |
-| x   | delete the current character                           |
+| u   | Undo                                                   |
+| yy  | Copy                                                   |
+| p   | Paste below the current position                       |
+| P   | Paste above the current position                       |
+| dd  | Delete the current line                                |
+| D   | Delete from the current position                       |
+| x   | Delete the current character                           |
 | i   | Insert mode (allow write text)                         |
 | :s  | Replace text :s/oldvalue/newvalue/g                    |
 
