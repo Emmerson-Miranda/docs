@@ -14,7 +14,22 @@ set ruler
 EOF
 ```
 
-Editor commands
+# Indent multiple lines
+Shift V
+Select text using up and down keys
+Press > or <
+Press . to repeat the action
+
+
+# Copy & paste multiple lines
+Esc V 
+Select text using up and down keys
+Copy: y
+Cut: d
+Paste: p or P
+
+
+# Editor commands
 
 | CMD | Description                                            |
 |-----|--------------------------------------------------------|
