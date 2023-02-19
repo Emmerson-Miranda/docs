@@ -7,25 +7,34 @@ export dry="--dry=run=client -oyaml"
 
 # Alias
 
+For each exercise verify and set namespace will save time.
+```
+alias kns="kubectl config set-context --current --namespace"
+#e.g: kns kube-system
+#e.g: kns default
 
+alias kcc="kubectl config view --minify | grep namespace | cut -d\" \" -f6;"
+#e.g: kcc 
+```
+
+Common task to get info or create pods can be optimized to not wait.
 ```
 alias kget="kubectl --show-labels -o=wide get" 
+#e.g: kget po
+#e.g: kget po,svc
 
 alias krun="kubectl run --dry-run=client -oyaml"
+#e.g: krun nginx --image=nginx
+#e.g: krun nginx --image=nginx | kubectl create -f -
+```
 
+Commands like apply, replace can be also optimized to not wait.
+```
 alias kdelete="kubectl delete --force --grace-period=0"
 
 alias kreplace="kubectl replace --force --grace-period=0"
 
 alias kaply="kubectl apply --force --grace-period=0"
-
-alias kcc="kubectl config view --minify | grep namespace | cut -d\" \" -f6;"
-
-
-# Source: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
-
-alias kx='f() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; f'
-
-alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; f'
-
 ```
+
+Other sources: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
