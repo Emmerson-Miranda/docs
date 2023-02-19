@@ -22,13 +22,17 @@ alias krun="kubectl run --dry-run=client -oyaml"
 #e.g: krun nginx --image=nginx | kubectl create -f -
 ```
 
-Commands like apply, replace can be also optimized to not wait.
+Commands like delete, replace, apply and create can be also optimized (for instance to not wait or anything else).
 ```
 alias kdelete="kubectl delete --force --grace-period=0"
 
 alias kreplace="kubectl replace --force --grace-period=0"
 
 alias kaply="kubectl apply --force --grace-period=0"
+
+alias kcreate="kubectl create --dry-run=client -oyaml"
+#e.g: kcreate cm myconfigmap --from-file=config.txt
+#e.g: kcreate cm myconfigmap --from-file=config.txt | kubectl apply -f -
 ```
 
 Other sources: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
