@@ -1,10 +1,4 @@
 
-# Environment variables
-```
-export dry="--dry=run=client -oyaml"
-```
-
-
 # Alias
 
 For each exercise verify and set namespace will save time.
