@@ -15,6 +15,8 @@ alias krf="kubectl replace --force --grace-period=0"
 
 alias kaf="kubectl apply --force --grace-period=0"
 
+alias kcc="kubectl config view --minify | grep namespace | cut -d\" \" -f6;"
+
 # Source: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 
 alias kx='f() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; f'
