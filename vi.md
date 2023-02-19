@@ -19,7 +19,7 @@ EOF
 Shift V
 Select text using up and down keys
 Press > or <
-Press . to repeat the action
+Press . to repeat the action as many times as needed
 ```
 
 # Copy & paste multiple lines
@@ -28,6 +28,14 @@ Esc V
 Select text using up and down keys
 Copy: y  or  Cut: d
 Paste: p or P
+```
+
+# Pasting from web pages
+```
+:set paste - Turn on paste mode. 
+i for insert mode
+paste from documentation
+:set nopaste - Turn off paste mode.
 ```
 
 # Editor commands
@@ -51,4 +59,5 @@ Paste: p or P
 | x   | Delete the current character                           |
 | i   | Insert mode (allow write text)                         |
 | :s  | Replace text :s/oldvalue/newvalue/g                    |
-
+| :w  | Save the document                                      |
+| :q! | Quit vi                                                |
