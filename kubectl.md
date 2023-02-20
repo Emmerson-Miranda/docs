@@ -14,6 +14,9 @@ alias kcc="kubectl config view --minify | grep namespace | cut -d\" \" -f6;"
 Common task to get info or create pods can be optimized to not wait.
 ```
 alias kget="kubectl --show-labels -o=wide get" 
+#or
+alias kget='f(){ [ "$1" ] && kubectl get $1 --show-labels  };f'
+
 #e.g: kget po
 #e.g: kget po,svc
 
