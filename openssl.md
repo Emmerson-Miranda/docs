@@ -1,5 +1,4 @@
 # openssl
-=========
 
 Verify what type of certificates accept a host (useful to check mTLS issues)
 
