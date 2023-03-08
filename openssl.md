@@ -1,6 +1,32 @@
 # openssl
 
-Verify what type of certificates accept a host (useful to check mTLS issues)
+## Create a Key
+
+```
+$ openssl genrsa -out ca.key 2048
+Generating RSA private key, 2048 bit long modulus
+.......................+++++
+................+++++
+e is 65537 (0x10001)
+```
+
+## Certificate Signing Request
+
+```
+$ openssl req -new -key ca.key -subj "/CN=TEST-CA" -out ca.csr
+```
+
+## Sign Certificate
+
+```
+$ openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt
+Signature ok
+subject=/CN=TEST-CA
+Getting Private key
+```
+
+
+## Verify what type of certificates accept a host (useful to check mTLS issues)
 
 ```
 $ hostname=w.x.y.z
