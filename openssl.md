@@ -40,9 +40,17 @@ $ openssl req -new -key administrator.key -subj "/CN=Administrator" -out adminis
 ### Sign Certificate with Local CA
 
 ```
-$ openssl x509 -req -in administrator.csr -CA ca.crt -CAkey ca.key -out administrator.crt
+$ openssl x509 -days 365 -req -in administrator.csr -CA ca.crt -CAkey ca.key -out administrator.crt
 ```
 
+The above command fails in MacOS (ca.srl: No such file or directory), to fix that use [CAcreateserial](https://www.openssl.org/docs/man3.0/man1/openssl-x509.html) parameter.
+
+```
+$ openssl x509 -days 365 -req -in administrator.csr -CAcreateserial -CA ca.crt -CAkey ca.key -out administrator.crt
+Signature ok
+subject=/CN=Administrator
+Getting CA Private Key
+```
 
 ## Verify what type of certificates accept a host (useful to check mTLS issues)
 
