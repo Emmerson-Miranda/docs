@@ -19,11 +19,6 @@ openssl req -new -key ca.key -subj "/CN=LOCAL-CA/O=org" -out ca.csr
 ```
 openssl x509 -req -in ca.csr -signkey ca.key -out ca.crt
 ```
-```
-Signature ok
-subject=/CN=TEST-CA
-Getting Private key
-```
 
 ## Create User Certificate
 
