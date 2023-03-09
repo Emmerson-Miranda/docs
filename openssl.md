@@ -11,7 +11,7 @@ $ openssl genrsa -out ca.key 2048
 ### Certificate Signing Request
 
 ```
-$ openssl req -new -key ca.key -subj "/CN=TEST-CA" -out ca.csr
+$ openssl req -new -key ca.key -subj "/CN=LOCAL-CA/O=org" -out ca.csr
 ```
 
 ### Sign Certificate
@@ -34,7 +34,7 @@ $ openssl genrsa -out administrator.key 2048
 ### Certificate Signing Request
 
 ```
-$ openssl req -new -key administrator.key -subj "/CN=Administrator" -out administrator.csr
+$ openssl req -new -key administrator.key -subj "/CN=Administrator/O=org" -out administrator.csr
 ```
 
 ### Sign Certificate with Local CA
