@@ -68,6 +68,20 @@ Check a certificate
 ```
 openssl x509 -in certificate.crt -text -noout
 ```
+```
+Certificate:
+    Data:
+        Version: 1 (0x0)
+        Serial Number:
+            ba:be:05:ca:96:4a:eb:c0
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN=LOCAL-CA, O=org
+        Validity
+            Not Before: Mar  9 00:27:38 2023 GMT
+            Not After : Mar  8 00:27:38 2024 GMT
+        Subject: CN=Administrator, O=org
+        ...
+```
 
 Links:
 - https://www.thesslstore.com/blog/openssl-commands-cheat-sheet/
