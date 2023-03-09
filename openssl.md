@@ -56,18 +56,7 @@ subject=/CN=Administrator
 Getting CA Private Key
 ```
 
-## Verify what type of certificates accept a host (useful to check mTLS issues)
-
-```
-$ hostname=w.x.y.z
-$ openssl s_client -connect $hostname:443 -servername $hostname
-...
-Acceptable client certificate CA names
-...
-...
-```
-
-Check a certificate
+## Check a certificate
 
 ```
 openssl x509 -in administrator.crt -text -noout
@@ -86,6 +75,18 @@ Certificate:
         Subject: CN=Administrator, O=org
         ...
 ```
+
+## Verify what type of certificates accept a host (useful to check mTLS issues)
+
+```
+$ hostname=w.x.y.z
+$ openssl s_client -connect $hostname:443 -servername $hostname
+...
+Acceptable client certificate CA names
+...
+...
+```
+
 
 Links:
 - https://www.thesslstore.com/blog/openssl-commands-cheat-sheet/
