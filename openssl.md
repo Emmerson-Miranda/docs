@@ -1,5 +1,7 @@
 # openssl
 
+In this document you will find simple examples how to use openssl, there is another repo with more comples example [here](https://github.com/Emmerson-Miranda/openssl).
+
 ## Create Local CA
 
 ### Generate a Key
