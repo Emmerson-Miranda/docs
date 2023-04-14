@@ -11,6 +11,7 @@ Acronyms
 - OOM - Out Of Memory
 - EDA - Event Driven Architectures
 - PO  - Product Owner
+- CWE - Common Weakness Enumeration, is a community-developed list of software and hardware weakness types. 
 
 ## Error Handling and Logging
 
@@ -28,17 +29,32 @@ Acronyms
 ## Data Protection
 | Best Practice | CWE | Description | Notes 
 |---------------|-----|-------------|------|
-| Encryption Everywhere | [CWE-311](https://cwe.mitre.org/data/definitions/311.html) <br/> [CWE-319](https://cwe.mitre.org/data/definitions/319.html) <br/> [CWE-523](https://cwe.mitre.org/data/definitions/523.html) | All data sensitive or critial information should be encrypted before storage or transmition (a.k.a encryption in transit and encryption at rest) <br/><br/> Some examples are: users, passwords, tokens, encryption keys or any information that can help to identify individuals or organizations. | Guarantees data integrity and confidentiality.<br/><br/>  [Zero Trust Security](https://www.cloudflare.com/en-gb/learning/security/glossary/what-is-zero-trust/) and [Service mesh](https://en.wikipedia.org/wiki/Service_mesh) helps to protect access to sensitive information.<br/><br/>  PCI DSS, HIPAA requires all data transfers must be encrypted.  <br/><br/>Technically it makes reference to TLS (HTTPS, SFTP, AMQP/JMS over TLS). <br/><br/> Disable HTTP or redirect to HTTPS. Use the Strict-Transport-Security Header. |
+| Encryption data in transit. | [CWE-311](https://cwe.mitre.org/data/definitions/311.html) <br/> [CWE-319](https://cwe.mitre.org/data/definitions/319.html) <br/> [CWE-523](https://cwe.mitre.org/data/definitions/523.html) | All data sensitive or critial information should be encrypted before transmition. <br/><br/>Some examples are: users, passwords, tokens, encryption keys or any information that can help to identify individuals or organizations. | Guarantees data integrity and confidentiality.<br/><br/>  [Zero Trust Security](https://www.cloudflare.com/en-gb/learning/security/glossary/what-is-zero-trust/) and [Service mesh](https://en.wikipedia.org/wiki/Service_mesh) helps to protect access to sensitive information.<br/><br/>  PCI DSS, HIPAA requires all data transfers must be encrypted.  <br/><br/>Technically it makes reference to TLS (HTTPS, SFTP, AMQP/JMS over TLS). <br/><br/> Disable HTTP or redirect to HTTPS. Use the Strict-Transport-Security Header. |
+| Encryption data at rest. | [CWE-311](https://cwe.mitre.org/data/definitions/311.html) <br/> [CWE-319](https://cwe.mitre.org/data/definitions/319.html) <br/> [CWE-523](https://cwe.mitre.org/data/definitions/523.html) | All data sensitive or critial information should be encrypted before storage. | Guarantees data integrity and confidentiality. <br/><br/>Technically it makes reference to enable encryption on AWS S3 and Azure Blob.|
 | Store passwords securely | [CWE-257](https://cwe.mitre.org/data/definitions/257.html) | User passwords must be stored using secure hashing techniques with strong algorithms. | Hashicorp Vault can store sensitive information securely. <br/><br/> No password should be stored in the code (application, testing, infrastructure). <br/><br/> Mechanisms to scan the code in regularly should be placed or even before push the code to the repositories. |
 | Use strong TLS ciphers |  | Weak ciphers must be disabled on all servers. <br/><br/>For example, SSL v2, SSL v3, and TLS protocols prior to 1.2 have known weaknesses and are not considered secure. <br/><br/>Additionally, disable the NULL, RC4, DES, and MD5 cipher suites. Ensure all key lengths are greater than 128 bits, use secure renegotiation, and disable compression. |
 | Rotate certificates regulary |  | | It makes more complicated tamper information in case an attacker have a copy of the certificate.|
 | Encrypt cache with sensitive information | [CWE-524](https://cwe.mitre.org/data/definitions/524.html) | The code uses a cache that contains sensitive information, but the cache can be read by an actor outside of the intended control sphere. | Encrypt ETCD storage for kubernetes (specially when use secrets with passwords). <br/><br/>Similar approach happen when applications store information in cache (REDIS, EhCache, Coherence,...) | 
 
-## Configuring and applications
-WIP
+## Configuring and Applications
+| Best Practice | CWE | Description | Notes |
+|---------------|-----|-------------|------|
+| Automate Application Deployment | | Automating the deployment of your application, using Continuous Integration and Continuous Deployment, helps to ensure that changes are made in a consistent, repeatable manner in all environments.| No manual changes should be accepted|
+| Establish a Rigorous Change Management Process | [CWE-439](https://cwe.mitre.org/data/definitions/439.html) | A rigorous change management process must be maintained during change management operations. For example, new releases should only be deployed after process  | |
+| Define Security Requirements | | Engage the business owner to define security requirements for the application. | |
+| Conduct a Design Review | [CWE-701](https://cwe.mitre.org/data/definitions/701.html) | Integrating security into the design phase saves money and time. <br/><br/>Conduct a risk review with security professionals and threat model the application to identify key risks. <br/><br/>The helps you integrate appropriate countermeasures into the design and architecture of the application. | |
+| Avoid Security by Obscurity | [CWE-656](https://cwe.mitre.org/data/definitions/656.html) | The application should not be protected if the attacker can make reverse engineering. | Security by obscurity can only slow down an attacker and can introduce an undesirable weakness. |
+| Perform Code Reviews | [CWE-702](https://cwe.mitre.org/data/definitions/702.html) | Security focused code reviews can be one of the most effective ways to find security bugs. Regularly review your code looking for common issues like SQL Injection and Cross-Site Scripting. | Merge request or PRs to a different team member helps to mitigate this.<br/><br/> Static Code Analysis tools verification can help. |
+| Perform Security Testing | | Conduct security testing both during and after development to ensure the application meets security standards. Testing should also be conducted after major releases to ensure vulnerabilities did not get introduced during the update process. | Avoid manual testing process, tests should be repeteable and if possible integrate as part of delivery pipeline. | 
+| Store configuration securely | [CWE-15](https://cwe.mitre.org/data/definitions/15.html) | Setting manipulation vulnerabilities occur when an attacker can control values that govern the behavior of the system, manage specific resources, or in some way affect the functionality of the application. | Only authorized users can access and update system configuration. Any update should be audited. |
+| Educate the Team on Security | | Training helps define a common language that the team can use to improve the security of the application. <br/><br/> Education should not be confined solely to software developers, testers, and architects. Anyone associated with the development process, such as business analysts and project managers, should all have periodic software security awareness training. | |
+
+
 
 ## Authentication
 WIP
+| Best Practice | CWE | Description | Notes |
+|---------------|-----|-------------|------|
 
 ## Session Management
 WIP
