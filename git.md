@@ -21,7 +21,7 @@ Source: [Introducing the Space Git Flow](https://blog.jetbrains.com/space/2023/0
 
 ### Git flow
 
-[jgit-flow](https://bitbucket.org/atlassian/jgit-flow/wiki/Home), it have performance differences between use "git:" and "https:" protocols.
+[jgit-flow](https://bitbucket.org/atlassian/jgit-flow/wiki/Home), it has performance differences between use "git:" and "https:" protocols.
 
 Connection credentials on the maven plugin.
 ````
