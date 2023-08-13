@@ -6,12 +6,17 @@ Information in this document can be considered part of **NFR** to be used during
 Source: [SWAT Checklist](https://www.sans.org/cloud-security/securing-web-application-technologies/)
 
 Acronyms
-- NFR - Non Functional Requirements.
-- DoD - Definition of Done.
-- OOM - Out Of Memory
-- EDA - Event Driven Architectures
-- PO  - Product Owner
 - CWE - Common Weakness Enumeration, is a community-developed list of software and hardware weakness types. 
+- DoD - Definition of Done.
+- EDA - Event Driven Architectures
+- NFR - Non Functional Requirements.
+- OOM - Out Of Memory
+- PO  - Product Owner
+- SSO - Single Sign On
+
+
+*OWASP Cheat Sheet Series*
+Collection of high value information on specific application security topics: https://cheatsheetseries.owasp.org/
 
 ## Error Handling and Logging
 
@@ -31,9 +36,9 @@ Acronyms
 |---------------|-----|-------------|------|
 | Encryption data in transit. | [CWE-311](https://cwe.mitre.org/data/definitions/311.html) <br/> [CWE-319](https://cwe.mitre.org/data/definitions/319.html) <br/> [CWE-523](https://cwe.mitre.org/data/definitions/523.html) | All data sensitive or critial information should be encrypted before transmition. <br/><br/>Some examples are: users, passwords, tokens, encryption keys or any information that can help to identify individuals or organizations. | Guarantees data integrity and confidentiality.<br/><br/>  [Zero Trust Security](https://www.cloudflare.com/en-gb/learning/security/glossary/what-is-zero-trust/) and [Service mesh](https://en.wikipedia.org/wiki/Service_mesh) helps to protect access to sensitive information.<br/><br/>  PCI DSS, HIPAA requires all data transfers must be encrypted.  <br/><br/>Technically it makes reference to TLS (HTTPS, SFTP, AMQP/JMS over TLS). <br/><br/> Disable HTTP or redirect to HTTPS. Use the Strict-Transport-Security Header. |
 | Encryption data at rest. | [CWE-311](https://cwe.mitre.org/data/definitions/311.html) <br/> [CWE-319](https://cwe.mitre.org/data/definitions/319.html) <br/> [CWE-523](https://cwe.mitre.org/data/definitions/523.html) | All data sensitive or critial information should be encrypted before storage. | Guarantees data integrity and confidentiality. <br/><br/>Technically it makes reference to enable encryption on AWS S3 and Azure Blob.|
-| Store passwords securely | [CWE-257](https://cwe.mitre.org/data/definitions/257.html) | User passwords must be stored using secure hashing techniques with strong algorithms. | Hashicorp Vault can store sensitive information securely. <br/><br/> No password should be stored in the code (application, testing, infrastructure). <br/><br/> Mechanisms to scan the code in regularly should be placed or even before push the code to the repositories. |
-| Use strong TLS ciphers |  | Weak ciphers must be disabled on all servers. <br/><br/>For example, SSL v2, SSL v3, and TLS protocols prior to 1.2 have known weaknesses and are not considered secure. <br/><br/>Additionally, disable the NULL, RC4, DES, and MD5 cipher suites. Ensure all key lengths are greater than 128 bits, use secure renegotiation, and disable compression. |
-| Rotate certificates regulary |  | | It makes more complicated tamper information in case an attacker have a copy of the certificate.|
+| Store passwords securely | [CWE-257](https://cwe.mitre.org/data/definitions/257.html) | User passwords must be stored using secure hashing techniques with strong algorithms. | Hashicorp Vault can store sensitive information securely. <br/><br/> No password should be stored in the code (application, testing, infrastructure). <br/><br/> Mechanisms to scan the code in regularly should be placed or even before push the code to the repositories. <br/><br/> Automatic scans should happen in source code repositories to identify secrets patterns (passwords, tokens, private keys ...) and also can be applied as pre-commit hooks to avoid commit/push sensitive information to the repositories. |
+| Use strong TLS ciphers |  | Weak ciphers must be disabled on all servers. <br/><br/>For example, SSL v2, SSL v3, and TLS protocols prior to 1.2 have known weaknesses and are not considered secure. <br/><br/>Additionally, disable the NULL, RC4, DES, and MD5 cipher suites. Ensure all key lengths are greater than 128 bits, use secure renegotiation, and disable compression. | Is possible to check source code to enforce the use of TLS ciphers (includes proxies if you use IaC and configuration management)  | 
+| Rotate certificates regulary | - | - | It makes more complicated tamper information in case an attacker have a copy of the certificate. <br/><br/>Authomation can be used to rotate them regulary. There are tools and frameworks that offer this capability (e.g. cert-manager). |
 | Encrypt cache with sensitive information | [CWE-524](https://cwe.mitre.org/data/definitions/524.html) | The code uses a cache that contains sensitive information, but the cache can be read by an actor outside of the intended control sphere. | Encrypt ETCD storage for kubernetes (specially when use secrets with passwords). <br/><br/>Similar approach happen when applications store information in cache (REDIS, EhCache, Coherence,...) | 
 
 ## Configuring and Applications
@@ -65,10 +70,40 @@ Acronyms
 | Applications and Middleware should run with minimal privileges | [CWE-250](https://cwe.mitre.org/data/definitions/250.html) | If an application becomes compromised it is important that the application itself and any middleware services be configured to run with minimal privileges. <br/><br/> For instance, while the application layer or business layer needs the ability to read and write data to the underlying database, administrative credentials that grant access to other databases or tables should not be provided. | We should check all credentials used by applications have the bare minimum privileges required. <br/><br/>Applications should not use admin credentials to connect to databases or other kind of resources. <br/><br/>In case of containers the user that run the application should be non root.|
 
 ## Session Management
-WIP
+
+| Best Practice | CWE | Description | Notes |
+|---------------|-----|-------------|------|
+| Regenerate Session Tokens | [CWE-384](http://cwe.mitre.org/data/definitions/384.html) | Should be regenerated when the user authenticates and when the user privilege level changes. | This will prevent steal privileges from other sessions or reuse them by accident given undesirable privileges to a session to a new login.|
+| Implement an Idle Session Timeout | [CWE-613](http://cwe.mitre.org/data/definitions/613.html) | When a user is not active, the application should automatically log the user out. Be aware that Ajax applications may make recurring calls to the application effectively resetting the timeout counter automatically. <br/><br/>Set the Cookie Expiration Time. | In the modern frameworks it use to be a configuration option.|
+| Implement an Absolute Session Timeout | [CWE-613](http://cwe.mitre.org/data/definitions/613.html) | Users should be logged out after an extensive amount of time has passed since they logged in. | The amount of time should be configurable. That applies even if we use "remember me / keep me login". |
+| Invalidate the Session after Logout | [CWE-613](http://cwe.mitre.org/data/definitions/613.html) | When the user logs out of the application the session and corresponding data on the server must be destroyed. | This applies also when you use SSO and user browse among multiple applications. |
+| Encrypt sensitive cookies | [CWE-614](https://cwe.mitre.org/data/definitions/614.html) | Sensitive cookies should not be transmited in text plain, attackers can access to this information. | Sensitive cookies must be always transmited via HTTPS only. SAST tools can help to detect this configuration as well as testing scripts.|
+| Avoid sensitive cookies access from client-side scripts | [CWE-1004](https://cwe.mitre.org/data/definitions/1004.html) | Prevent client-side script from accessing cookies. HttpOnly flag in the Set-Cookie HTTP response header helps mitigate the risk associated with Cross-Site Scripting (XSS) where an attacker's script code might attempt to read the contents of a cookie. | - |
+
 
 ## Input and Output Handling
 WIP
 
+| Best Practice | CWE | Description | Notes |
+|---------------|-----|-------------|------|
+| Use Parameterized SQL Queries | [CWE](https) | xxx. | xxx.|
+| Set the Encoding for Your Application | [CWE](https) | xxx. | xxx.|
+| Use Secure HTTP Response Headers | [CWE](https) | xxx. | xxx.|
+| Parameters and Headers validation | [CWE](https) | xxx. | xxx.|
+| Syntactic and Semantic data validation | [CWE](https) | xxx. | xxx.|
+| Validate Uploaded Files | [CWE](https) | xxx. | xxx.|
+| Deserialize Untrusted Data with Proper Controls | [CWE](https) | xxx. | xxx.|
+
 ## Access Control
 WIP
+| Best Practice | CWE | Description | Notes |
+|---------------|-----|-------------|------|
+| xxx | [CWE](https) | xxx. | xxx.|
+| xxx | [CWE](https) | xxx. | xxx.|
+| xxx | [CWE](https) | xxx. | xxx.|
+| xxx | [CWE](https) | xxx. | xxx.|
+| xxx | [CWE](https) | xxx. | xxx.|
+| xxx | [CWE](https) | xxx. | xxx.|
+| xxx | [CWE](https) | xxx. | xxx.|
+| xxx | [CWE](https) | xxx. | xxx.|
+| xxx | [CWE](https) | xxx. | xxx.|
