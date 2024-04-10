@@ -127,3 +127,18 @@ Uninstall a release
 ```
 $ helm uninstall myapache
 ```
+
+## Local development
+
+Render local chart, run in the chart root folder (https://helm.sh/docs/helm/helm_template/).
+
+```
+$ helm template .
+```
+
+To pass multiple file with values use multiple times `-f`, if file does not exist it will fail.
+
+If you use [buildin objects](https://helm.sh/docs/chart_template_guide/builtin_objects/) within your templates like `Capabilities.APIVersions.Has` use `--api-versions` command line argument.
+
+If you want to validate against the target server use `--validate` and `--kubeconfig` command line arguments.
+
