@@ -138,6 +138,10 @@ $ helm template .
 
 To pass multiple file with values use multiple times `-f`, if file does not exist it will fail.
 
+To specify release name use `--release-name`, some templates access to it using `{{ .Release.Name }}`
+
+When you template uses CRDs add command line argument `--include-crds`.
+
 If you use [buildin objects](https://helm.sh/docs/chart_template_guide/builtin_objects/) within your templates like `Capabilities.APIVersions.Has` use `--api-versions` command line argument.
 
 If you want to validate against the target server use `--validate` and `--kubeconfig` command line arguments.
