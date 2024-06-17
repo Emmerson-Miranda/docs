@@ -73,6 +73,18 @@ Certificate:
         ...
 ```
 
+
+## Verify what type of certificates accept a host (useful to check mTLS issues)
+
+```
+$ hostname=w.x.y.z
+$ openssl s_client -connect $hostname:443 -servername $hostname
+...
+Acceptable client certificate CA names
+...
+...
+```
+
 ## File extensions explained
 Source: https://stackoverflow.com/questions/63195304/difference-between-pem-crt-key-files
 
@@ -97,18 +109,7 @@ PKI - Keys are composed by public key and a private key.
 A JKS keystore is a native file format for Java to store and manage some or all of the components above, and keep a database of related capabilities that are allowed or rejected for each key.
 
 
-## Verify what type of certificates accept a host (useful to check mTLS issues)
 
-```
-$ hostname=w.x.y.z
-$ openssl s_client -connect $hostname:443 -servername $hostname
-...
-Acceptable client certificate CA names
-...
-...
-```
-
-
-Links:
+# Links:
 - https://www.thesslstore.com/blog/openssl-commands-cheat-sheet/
 - https://www.freecodecamp.org/news/openssl-command-cheatsheet-b441be1e8c4a/
