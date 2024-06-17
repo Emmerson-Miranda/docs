@@ -73,6 +73,24 @@ Certificate:
         ...
 ```
 
+## File extensions explained
+Source: https://stackoverflow.com/questions/63195304/difference-between-pem-crt-key-files
+
+PKI - Keys are composed by public key and a private key.
+
+.key files are generally the private key, used by the server to encrypt and package data for verification by clients.
+
+.pem files are generally the public key, used by the client to verify and decrypt data sent by servers. PEM files could also be encoded private keys, so check the content if you're not sure.
+
+.p12 files have both halves of the key embedded, so that administrators can easily manage halves of keys.
+
+.cert or .crt files are the signed certificates -- basically the "magic" that allows certain sites to be marked as trustworthy by a third party.
+
+.csr is a certificate signing request, a challenge used by a trusted third party to verify the ownership of a keypair without having direct access to the private key (this is what allows end users, who have no direct knowledge of your website, confident that the certificate is valid). In the self-signed scenario you will use the certificate signing request with your own private key to verify your private key (thus self-signed). 
+
+A JKS keystore is a native file format for Java to store and manage some or all of the components above, and keep a database of related capabilities that are allowed or rejected for each key.
+
+
 ## Verify what type of certificates accept a host (useful to check mTLS issues)
 
 ```
