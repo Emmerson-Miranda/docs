@@ -78,15 +78,21 @@ Source: https://stackoverflow.com/questions/63195304/difference-between-pem-crt-
 
 PKI - Keys are composed by public key and a private key.
 
-.key files are generally the private key, used by the server to encrypt and package data for verification by clients.
+.key files are generally the private key, used by the server to encrypt and package data for verification by clients. This is accessible the key owner and no one else.
 
-.pem files are generally the public key, used by the client to verify and decrypt data sent by servers. PEM files could also be encoded private keys, so check the content if you're not sure.
+.pem files are generally the public key, used by the client to verify and decrypt data sent by servers. PEM files could also be encoded private keys, so check the content if you're not sure. Is a text-based base-64 encoded. It can have multiple(chained) certificates in the below format:
 
-.p12 files have both halves of the key embedded, so that administrators can easily manage halves of keys.
+```text
+-----BEGIN ...-----
+...
+-----END ...-----
+```
+
+.p12 is a PKCS12 file, which is a container format usually used to combine the private key and certificate.
 
 .cert or .crt files are the signed certificates -- basically the "magic" that allows certain sites to be marked as trustworthy by a third party.
 
-.csr is a certificate signing request, a challenge used by a trusted third party to verify the ownership of a keypair without having direct access to the private key (this is what allows end users, who have no direct knowledge of your website, confident that the certificate is valid). In the self-signed scenario you will use the certificate signing request with your own private key to verify your private key (thus self-signed). 
+.csr is the certificate request. This is a request for a certificate authority to sign the key. (The key itself is not included.)
 
 A JKS keystore is a native file format for Java to store and manage some or all of the components above, and keep a database of related capabilities that are allowed or rejected for each key.
 
