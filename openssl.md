@@ -112,8 +112,14 @@ PKI - Keys are composed by public key and a private key.
 
 .csr is the certificate request. This is a request for a certificate authority to sign the key. (The key itself is not included.)
 
+### JKS 
 A JKS keystore is a native file format for Java to store and manage some or all of the components above, and keep a database of related capabilities that are allowed or rejected for each key.
 
+Use keytool utility to add certificates to keystore (see https://docs.oracle.com/en/java/javase/17/docs/specs/man/keytool.html)
+
+```text
+keytool -trustcacerts -keystore "$JAVA_HOME/lib/security/cacerts" -storepass changeit --importcert -alias mycert -file ~/Downloads/mycert.pem
+```
 
 
 # Links:
