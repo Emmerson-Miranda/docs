@@ -53,6 +53,12 @@ subject=/CN=Administrator
 Getting CA Private Key
 ```
 
+## Download a certificate from HTTPS endpoint
+
+```
+openssl s_client -showcerts -connect github.com:443 </dev/null | sed -n -e '/-.BEGIN/,/-.END/ p' > certs.pem
+```
+
 ## Check a certificate
 
 ```
