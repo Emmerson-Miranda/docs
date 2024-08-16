@@ -106,6 +106,15 @@ PKI - Keys are composed by public key and a private key.
 -----END ...-----
 ```
 
+.pem file can hold multiple certificates in the following order (Note: some servers may require in reverse order):
+1) Your server certificate
+2) Intermediate certificate
+3) Root certificate
+
+
+[See: How to create a .pem file for SSL Certificate Installations]([https://link-url-here.org](https://www.suse.com/es-es/support/kb/doc/?id=000018152))
+
+
 .p12 is a PKCS12 file, which is a container format usually used to combine the private key and certificate.
 
 .cert or .crt files are the signed certificates -- basically the "magic" that allows certain sites to be marked as trustworthy by a third party.
