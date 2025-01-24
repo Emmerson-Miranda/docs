@@ -8,7 +8,7 @@ When certaing pods needs special access that are not allowed in SELinux, so the 
 Choose a worker node to work on, then SSH into it.
 
 - Baseline the current denials
-  - Unistall the sofware that is failing
+  - Uninstall the sofware that is failing
   - Capture and/or fix the current issues before the install the software
 - Change to permissive mode
   - getenforce
