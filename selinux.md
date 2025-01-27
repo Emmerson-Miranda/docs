@@ -69,6 +69,19 @@ semodule -i fix_container.pp
 
 <hr/>
 
+## Inspect the logs
+
+SELinux record all denials to the `/var/log/audit/audit.log` file.
+
+Get AVC errors from last 10 minutes.
+
+```bash
+ausearch -m avc -ts recent
+```
+
+
+<hr/>
+
 ## Troubleshooting
 
 When certaing pods needs special access that are not allowed in SELinux, so the pod's state is never running (e.g. CrashLoopBackOff). 
