@@ -79,6 +79,27 @@ Get AVC errors from last 10 minutes.
 ausearch -m avc -ts recent
 ```
 
+### Understanding log entry
+Given below error message in audit.log:
+```text
+local type=AVC msg=audit(1737988480.652:41418): avc:  denied  { search } for  pid=10443 comm="OAperiodicevent" name="7467" dev="proc" ino=59310 scontext=system_u:system_r:container_t:s0:c358,c918 tcontext=system_u:system_r:container_t:s0:c188,c782 tclass=dir permissive=0
+```
+Understanding the error message:
+- `Action Denied`: { search } – Process attempted to search in a directory.
+- `Process`: OAperiodicevent (PID 10443).
+- `Target Directory`: /proc/7467.
+- `Source Context`: system_u:system_r:container_t:s0:c358,c918.
+- `Target Context`: system_u:system_r:container_t:s0:c188,c782.
+- `Class`: dir (directory).
+- `Permissive`: 0 (enforcing mode).
+
+Check if labels match:
+```bash
+ps -eZ | grep 10443
+ls -ldZ /proc/7467
+```
+
+For more info read [7.7. Searching the Audit Log Files](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-searching_the_audit_log_files#sec-Searching_the_Audit_Log_Files)
 
 <hr/>
 
