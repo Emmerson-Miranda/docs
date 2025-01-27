@@ -54,6 +54,11 @@ require {
 allow container_t container_file_t:chr_file { write setattr };
 ```
 
+Check syntax, to verify if you have to add a *type* or *class* inside the `require` block.
+```bash
+checkmodule -M -m fix_container.te
+```
+
 After, compile and install the policy:
 
 ```bash
