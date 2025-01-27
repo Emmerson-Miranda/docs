@@ -103,6 +103,20 @@ For more info read [7.7. Searching the Audit Log Files](https://docs.redhat.com/
 
 <hr/>
 
+## Kubernetes
+
+Is possible assign SELinux labels to a container, see [Assign SELinux labels to a Container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#assign-selinux-labels-to-a-container)
+
+Be sure you assign the righ level/category in order to avoid issues with SELinux.
+
+```yaml
+securityContext:
+  seLinuxOptions:
+    level: "s0:c123,c456"
+```
+
+<hr/>
+
 ## Troubleshooting
 
 When certaing pods needs special access that are not allowed in SELinux, so the pod's state is never running (e.g. CrashLoopBackOff). 
