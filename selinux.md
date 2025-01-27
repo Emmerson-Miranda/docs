@@ -37,6 +37,33 @@ reboot
 
 <hr/>
 
+## Create and install custom SELinux policies
+
+First write the te file, for instance:
+
+`fix_container.te` manually created.
+```
+module fix_container 1.0;
+
+require {
+    type container_t;
+    type container_file_t;
+    class chr_file { write setattr };
+}
+
+allow container_t container_file_t:chr_file { write setattr };
+```
+
+After, compile and install the policy:
+
+```bash
+checkmodule -M -m -o fix_container.mod fix_container.te
+semodule_package -o fix_container.pp -m fix_container.mod
+semodule -i fix_container.pp
+```
+
+<hr/>
+
 ## Troubleshooting
 
 When certaing pods needs special access that are not allowed in SELinux, so the pod's state is never running (e.g. CrashLoopBackOff). 
