@@ -103,6 +103,48 @@ For more info read [7.7. Searching the Audit Log Files](https://docs.redhat.com/
 
 <hr/>
 
+### Label format
+
+```text
+user:role:type:level
+```
+
+- `user`: The user field defines the SELinux user associated with the object or process.
+  - Example: 
+    - **system_u**: System processes and objects (default for system services).
+    - **unconfined_u**: Unrestricted user (used for most users in unconfined domains, such as a typical shell user).
+    - **user_u**: Default user context for non-administrative, confined users.
+    - ...
+- `role`: Specifies the role of the subject or object. Roles are used to group permissions for processes or objects.
+  - Example:
+    - **object_r**: Role assigned to objects (e.g., files, directories, devices).
+    - **system_r**: Role assigned to system processes (e.g., daemons like sshd).
+    - **user_r**: Role for general user processes.
+    - ...
+- `type`: The type field is the most critical part of the SELinux label. Policies are built around the type field to enforce access control.
+  - Example:
+    - **httpd_t**: Process type for the Apache HTTP server daemon.
+    - **container_t**: Process type for container runtimes, such as podman or docker.
+    - **ssh_t**: Process type for the SSH daemon.
+    - ...
+- `level`: The level field specifies the sensitivity level and categories of an object or process. Levels are used in MLS/MCS environments.
+  - Example:
+    - **s0**: Default single-level security sensitivity.
+    - **s0:c0**: Security sensitivity s0 with category c0.
+    - **s0:c0,c1**: Sensitivity s0 with a range of categories from c1 to c5.
+    - **s0-s0:c0.c1023**: Full sensitivity range from s0 with all possible categories (c0 to c1023).
+
+Examples:
+| Example Label                                         | Description                                                       |
+|-------------------------------------------------------|-------------------------------------------------------------------|
+| system_u:object_r:httpd_sys_content_t:s0              |  A file or directory served by the Apache web server.             |
+| system_u:system_r:sshd_t:s0                           | A process running the SSH daemon.                                 |
+| user_u:user_r:user_home_t:s0:c0,c1                    | A file in a user's home directory with additional MCS categories. |
+| unconfined_u:object_r:container_file_t:s0:c123,c456   | A file accessed by a container runtime.                           |
+
+
+<hr/>
+
 ## Kubernetes
 
 Is possible assign SELinux labels to a container, see [Assign SELinux labels to a Container](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#assign-selinux-labels-to-a-container)
