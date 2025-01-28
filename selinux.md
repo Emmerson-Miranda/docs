@@ -135,6 +135,8 @@ user:role:type:level
     - **s0-s0:c0.c1023**: Full sensitivity range from s0 with all possible categories (c0 to c1023).
 
 **Multi-category security (MCS) labels** are used primarily for isolation in systems with multiple containers or virtualized environments:
+- Labels are assigned to a container by the container runtime, such as Docker, Podman, or Kubernetes (CRI-O, containerd, ...), based on the SELinux policy in use.
+- Each container's MCS label is unique to prevent unauthorized access between containers.
 - They ensure that processes or containers with different categories cannot interact with each other unless explicitly allowed.
 - In containerized systems like Docker or Podman: Each container gets a unique set of categories (e.g., c188,c782) to prevent it from accessing the files or processes of another container.
   - For example, a process labeled s0:c188,c782 cannot access resources labeled s0:c200,c800.
