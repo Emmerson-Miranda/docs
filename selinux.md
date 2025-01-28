@@ -88,8 +88,8 @@ Understanding the error message:
 - `Action Denied`: { search } – Process attempted to search in a directory.
 - `Process`: OAperiodicevent (PID 10443).
 - `Target Directory`: /proc/7467.
-- `Source Context`: system_u:system_r:container_t:s0:c358,c918.
-- `Target Context`: system_u:system_r:container_t:s0:c188,c782.
+- `Source Context`: with label `system_u:system_r:container_t:s0:c358,c918`.
+- `Target Context`: with label `system_u:system_r:container_t:s0:c188,c782`.
 - `Class`: dir (directory).
 - `Permissive`: 0 (enforcing mode).
 
@@ -127,12 +127,18 @@ user:role:type:level
     - **container_t**: Process type for container runtimes, such as podman or docker.
     - **ssh_t**: Process type for the SSH daemon.
     - ...
-- `level`: The level field specifies the sensitivity level and categories of an object or process. Levels are used in MLS/MCS environments.
+- `level`: The level field specifies the sensitivity level and **categories** of an object or process. Levels are used in MLS/MCS environments.
   - Example:
     - **s0**: Default single-level security sensitivity.
     - **s0:c0**: Security sensitivity s0 with category c0.
     - **s0:c0,c1**: Sensitivity s0 with a range of categories from c1 to c5.
     - **s0-s0:c0.c1023**: Full sensitivity range from s0 with all possible categories (c0 to c1023).
+
+**Multi-category security (MCS) labels** are used primarily for isolation in systems with multiple containers or virtualized environments:
+- They ensure that processes or containers with different categories cannot interact with each other unless explicitly allowed.
+- In containerized systems like Docker or Podman: Each container gets a unique set of categories (e.g., c188,c782) to prevent it from accessing the files or processes of another container.
+  - For example, a process labeled s0:c188,c782 cannot access resources labeled s0:c200,c800.
+  - In simple terms, c188 and c782 are unique tags that SELinux uses to isolate and secure processes or files from one another.
 
 Examples:
 | Example Label                                         | Description                                                       |
@@ -141,7 +147,7 @@ Examples:
 | system_u:system_r:sshd_t:s0                           | A process running the SSH daemon.                                 |
 | user_u:user_r:user_home_t:s0:c0,c1                    | A file in a user's home directory with additional MCS categories. |
 | unconfined_u:object_r:container_file_t:s0:c123,c456   | A file accessed by a container runtime.                           |
-
+| system_u:system_r:container_t:s0:c358,c918            | Represents a process running inside a container with security attributes assigned by SELinux, where container_t is the type for container processes, and s0:c358,c918 specifies its multi-category security (MCS) labels for isolation from other containers.   |
 
 <hr/>
 
