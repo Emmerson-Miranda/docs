@@ -26,6 +26,14 @@ git branch --set-upstream-to=origin/master master
 git pull
 ```
 
+### Forcing to use ssh instead of https
+
+Edit */.gitconfig* file and instruct to use ssh instead https to https sources.
+
+```bash
+[url "git@your.git.server.com:"]
+        insteadOf = https://your.git.server.com/
+```
 
 
 ## Branching strategy
