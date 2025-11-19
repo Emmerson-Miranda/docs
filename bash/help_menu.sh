@@ -21,8 +21,15 @@ EXAMPLES
 EOF
 }
 
+# Print all passed arguments
+echo "Passed arguments:"
+for arg in "$@"; do
+  echo "    argument: ${arg}"
+done
+echo ""
+
 # Check if no options were passed
-if [ $OPTIND -eq 1 ]; then echo "No options were passed"; _help; exit 1;fi
+if [ "$#" -eq 0 ]; then echo "No options were passed"; _help; exit 1;fi
 
 # Parse command line options
 while getopts "ra:h" opt; do
