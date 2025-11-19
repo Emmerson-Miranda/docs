@@ -37,10 +37,6 @@ while getopts "ra:h" opt; do
     _help
     exit 0
     ;;
-  ?)
-    _help
-    exit 0
-    ;;
   *)
     _help
     exit 0
