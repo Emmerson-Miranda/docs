@@ -57,3 +57,49 @@ Connection credentials on the maven plugin.
 ### Jetbrains Space Git flow
 
 ![Space Git flow](./git/jetbrains-space-git-flow-1.png)
+
+
+# Git workflow
+
+
+```mermaid
+%% A Git workflow showing different branch types
+gitGraph
+   commit id: "Initial Commit" tag: "v1.0"
+   branch master
+   checkout master
+   commit id: "Production Release"
+
+   branch develop
+   checkout develop
+   commit id: "Initial Develop Commit"
+
+   branch feature/feature-1
+   checkout feature/feature-1
+   commit id: "Feature 1 Work"
+   commit id: "Feature 1 Work Continues"
+   checkout develop
+   merge feature/feature-1 tag: "Feature 1 Merged"
+
+   branch feature/feature-2
+   checkout feature/feature-2
+   commit id: "Feature 2 Work"
+   checkout develop
+   merge feature/feature-2 tag: "Feature 2 Merged"
+
+   branch release/v1.1
+   checkout release/v1.1
+   commit id: "Release Prep v1.1"
+   checkout master
+   merge release/v1.1 tag: "v1.1"
+   checkout develop
+   merge release/v1.1
+
+   branch hotfix/v1.1.1
+   checkout hotfix/v1.1.1
+   commit id: "Hotfix for v1.1.1"
+   checkout master
+   merge hotfix/v1.1.1 tag: "v1.1.1"
+   checkout develop
+   merge hotfix/v1.1.1
+```

@@ -16,6 +16,7 @@ Acronyms
 
 
 *OWASP Cheat Sheet Series*
+
 Collection of high value information on specific application security topics: https://cheatsheetseries.owasp.org/
 
 ## Error Handling and Logging
@@ -86,13 +87,13 @@ WIP
 
 | Best Practice | CWE | Description | Notes |
 |---------------|-----|-------------|------|
-| Use Parameterized SQL Queries | [CWE](https) | xxx. | xxx.|
-| Set the Encoding for Your Application | [CWE](https) | xxx. | xxx.|
-| Use Secure HTTP Response Headers | [CWE](https) | xxx. | xxx.|
+| Use Parameterized SQL Queries | [CWE-89](https://cwe.mitre.org/data/definitions/89.html) | xxx. | xxx.|
+| Set the Encoding for Your Application | [CWE-172](https://cwe.mitre.org/data/definitions/172.html) | xxx. | Accept-Encoding, Content-Encoding, Transfer-Encoding.|
+| Use Secure HTTP Response Headers | [CWE-79](https://cwe.mitre.org/data/definitions/79.html) <br/> [CWE-692](https://cwe.mitre.org/data/definitions/692.html) | xxx. | xxx.|
 | Parameters and Headers validation | [CWE](https) | xxx. | xxx.|
 | Syntactic and Semantic data validation | [CWE](https) | xxx. | xxx.|
-| Validate Uploaded Files | [CWE](https) | xxx. | xxx.|
-| Deserialize Untrusted Data with Proper Controls | [CWE](https) | xxx. | xxx.|
+| Validate Uploaded Files | [CWE-434](https://cwe.mitre.org/data/definitions/434.html) <br/> [CWE-616](https://cwe.mitre.org/data/definitions/616.html) <br/> [CWE-22](https://cwe.mitre.org/data/definitions/22.html) <br/> | xxx. | xxx.|
+| Deserialize Untrusted Data with Proper Controls | [CWE-502](https://cwe.mitre.org/data/definitions/502.html) | xxx. | xxx.|
 
 ## Access Control
 WIP
