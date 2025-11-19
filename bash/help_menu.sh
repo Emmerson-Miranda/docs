@@ -27,7 +27,7 @@ EOF
 if [ "$#" -eq 0 ]; then echo "No options were passed"; _help; exit 1;fi
 
 # Parse command line options
-while getopts "r:a:hp" opt; do
+while getopts "ra:hp" opt; do
   case "$opt" in
   r)
     curl 'https://ascii.live/rick'
