@@ -53,6 +53,17 @@ subject=/CN=Administrator
 Getting CA Private Key
 ```
 
+### Verify certificate and private key
+
+The md5 in both have to be the same.
+```
+openssl x509 -noout -modulus -in ./my-cert.pem | openssl md5      
+(stdin)= bla59f6b6a864336495f870c920cdbla
+
+ openssl rsa -noout -modulus -in ./my-privatekey.pem | openssl md5
+(stdin)= bla59f6b6a864336495f870c920cdbla
+```
+
 ## Download a certificate from HTTPS endpoint
 
 ```

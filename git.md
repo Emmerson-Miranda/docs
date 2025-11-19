@@ -12,6 +12,30 @@ sudo yum install git-gui
 gitk
 ```
 
+## Commands
+
+### Changing the repo location
+
+Note: Some organizations use different name to master branch.
+
+```bash
+git switch master
+git remote rm origin
+git remote add origin git@your.gitserver.com:your-new-repo.git
+git branch --set-upstream-to=origin/master master
+git pull
+```
+
+### Forcing to use ssh instead of https
+
+Edit */.gitconfig* file and instruct to use ssh instead https to https sources.
+
+```bash
+[url "git@your.git.server.com:"]
+        insteadOf = https://your.git.server.com/
+```
+
+
 ## Branching strategy
 
 Define a naming convention that suits to the team.
