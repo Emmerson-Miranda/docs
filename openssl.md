@@ -102,7 +102,7 @@ Acceptable client certificate CA names
 ...
 ```
 
-## Verify certificate is valid to connect to HTTPS
+## Verify a certificate is valid to connect to an HTTPS endpoint
 
 verify_return_error - Makes OpenSSL fail immediately if certificate validation fails.
 
