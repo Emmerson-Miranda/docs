@@ -102,6 +102,21 @@ Acceptable client certificate CA names
 ...
 ```
 
+## Verify certificate is valid to connect to HTTPS
+
+verify_return_error - Makes OpenSSL fail immediately if certificate validation fails.
+
+```
+openssl s_client \
+    -connect ${HOST}:${PORT} \
+    -servername ${HOST} \
+    -CAfile ${CA_CERT} \
+    -cert ${CLIENT_CERT} \
+    -key ${CLIENT_KEY} \
+    -verify_return_error \
+    </dev/null
+```
+
 ## File extensions explained
 Source: https://stackoverflow.com/questions/63195304/difference-between-pem-crt-key-files
 
